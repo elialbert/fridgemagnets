@@ -39,7 +39,7 @@ cpmodule
      function prepareMagnets(wordList, height, width) {
 	 var prepared = {};
 	 var count = 0;
-	 var wordList = shuffle(wordList).slice(0,60);
+	 var wordList = shuffle(wordList).slice(0,75);
 	 angular.forEach(wordList, function(word) {
 	     count = count + 1;
 	     var wordDict = {text:word.toLowerCase(),top:getRandomInt(100,height-100) + 'px',left:getRandomInt(100,width-200)+'px'};
