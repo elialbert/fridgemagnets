@@ -6,11 +6,12 @@ var cpmodule = angular.module('fridgemagnets');
 cpmodule.
   controller('HomeCtrl', ['$scope', "$routeParams", 'fbutil', 'FBURL', "$modal", "$window", "$location", function($scope, $routeParams, fbutil, FBURL, $modal, $window, $location) {
       $scope.FBURL = FBURL;
+      $scope.shapes = {}
       var zindexCounter = 1;
       var container = angular.element("#fridge");
       var roomName = $routeParams.name || "start";
       $scope.roomName = roomName;
-      var syncShapes = fbutil.prepareRoom(roomName, (container[0].offsetHeight+container.offset().top), (container[0].offsetWidth), $scope);
+      fbutil.prepareRoom(roomName, (container[0].offsetHeight+container.offset().top), (container[0].offsetWidth), $scope);
       
       $scope.onStop = function(el, ui) {
 	  ui.helper.css('box-shadow','2px 2px 1px #888888');
@@ -25,10 +26,6 @@ cpmodule.
 
 	  var container_offset = container.offset();	
 	  var element_offset = obj.offset();
-
-	  //console.log("element offset top is " + element_offset.top + " and objoffsetheight is " + obj[0].offsetHeight);
-	  //console.log("container offsetheight is " + container[0].offsetHeight + " and container offset top is " + container.offset().top);
-	  //console.log("obj height is " + obj[0].offsetHeight);
 
    	  if (element_offset.top < container_offset.top) {
 	      obj.css('top',(container_offset.top+5)+'px');

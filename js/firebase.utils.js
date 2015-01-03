@@ -60,9 +60,9 @@ cpmodule
 	 var numWords = _.keys(d).length;
 	 var numPunc = Math.ceil(numWords/20);
 	 for (var i=0;i<numPunc;i++){
-	     d['~comma'+i] = {'text':',', top:getRandomInt(100,height-100) + 'px',left:getRandomInt(100,width-200)+'px'}
-	     d['~period'+i] = {'text':'.', top:getRandomInt(100,height-100) + 'px',left:getRandomInt(100,width-200)+'px'}
-	     d['~qm'+i] = {'text':'?', top:getRandomInt(100,height-100) + 'px',left:getRandomInt(100,width-200)+'px'}
+	     d['zxzcomma'+i] = {'text':',', top:getRandomInt(100,height-100) + 'px',left:getRandomInt(100,width-200)+'px'}
+	     d['zxzperiod'+i] = {'text':'.', top:getRandomInt(100,height-100) + 'px',left:getRandomInt(100,width-200)+'px'}
+	     d['zxzqm'+i] = {'text':'?', top:getRandomInt(100,height-100) + 'px',left:getRandomInt(100,width-200)+'px'}
 	 }
 	 return d
      }
@@ -73,23 +73,36 @@ cpmodule
 	 var sync = ref.$asObject();
 	 sync.$loaded(function (data) {
 	     if (data.$value !== null) {
-		 sync.$bindTo(scope, "shapes");
-		 return sync
+		 var magnetNames = _.keys(data);
+		 magnetNames = _.filter(magnetNames, function(key) {
+		     return (key.indexOf("$") != 0)
+		 });
+		 bigBind(scope, roomName, magnetNames);
 	     }
 	     else {	
-		 ref.$set(prepareMagnets(startingSet, height, width));
-		 sync.$bindTo(scope, "shapes");
-		 return sync
+		 var prepared = prepareMagnets(startingSet, height, width);		 
+		 ref.$set(prepared);
+		 bigBind(scope, roomName, _.keys(prepared));
 	     }
 	 });
      }
 
+     function bigBind(scope, roomName, magnets) {
+	 angular.forEach(magnets, function(name) {
+	     var ref = syncData(roomName + "/" + name);
+	     var sync = ref.$asObject();
+	     sync.$bindTo(scope,"shapes."+name);
+	 });
+     }
      function changeMagnetSet(wordList, roomName, height, width, scope) {
 	 var ref = syncData(roomName);
 	 var sync = ref.$asObject();
 	 var prepared = prepareMagnets(wordList, height, width);
-	 ref.$set(prepared);
-	 sync.$bindTo(scope, "shapes");
+	 ref.$set(prepared).then(function(ref) {
+	     bigBind(scope, roomName, _.keys(prepared));
+	 }, function(error) {
+	     console.log("Error:", error);
+	 });
      }
 
      function testRoomName(roomName, cb) {
