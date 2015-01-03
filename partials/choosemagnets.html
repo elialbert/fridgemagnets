@@ -5,10 +5,10 @@
 	  <p>
 	  <span style="color:red;">{{status}}</span>
 	  </p>
-	  <form class="simple-form">
+	  <form class="simple-form" name="newfridge" novalidate>
 	    <div class="input-group">
 	      <span class="input-group-addon">Fridge Name:</span>
-	      <input style="width:200px;" type="text" class="form-control" ng-model="fridgeName">
+	      <input style="width:200px;" type="text" class="form-control" ng-model="fridgeName" ng-pattern="/^[a-zA-Z0-9]+$/" name="fridgenameinput" ng-change="testValidation()">
 	    </div>
 	    <p/>
 	    <div class="input-group">
