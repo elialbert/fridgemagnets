@@ -35,5 +35,6 @@ and (max-width : 520px) {
     background: white;
     text-align: center;
     padding:8px;
-    
+    cursor: hand;
+    cursor: pointer;
 }
