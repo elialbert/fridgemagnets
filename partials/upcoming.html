@@ -1,0 +1,25 @@
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+              <div class="post-preview" ng-repeat="post in posts">
+                <h2 class="post-title">
+		  {{post.title}}
+                </h2>
+		<div ng-if="post.image">
+		  <img src="{{post.image}}"/>
+		</div>
+		  {{post.body}}
+                <p class="post-meta">Posted by {{post.author}} on {{post.date}}</p>
+                <hr>
+              </div>
+            </div>
+        </div>
+	<hr/>
+	<div class="row">
+	  <div class="repeater" ng-repeat="shape in shapes">
+	    <div id="{{shape.id}}" style="position:absolute; top:{{shape.top}}; left:{{shape.left}};" class="thismightdrag" data-drag="true" jqyoui-draggable="{onDrag:'shapeStopped'}" ng-model="shape"><img src="{{shape.image}}"/></div>
+	  </div>
+	</div>
+    </div>
+

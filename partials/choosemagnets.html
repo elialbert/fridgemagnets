@@ -1,0 +1,42 @@
+        <div class="modal-header">
+            <h3 class="modal-title">Create a new fridge</h3>
+        </div>
+        <div class="modal-body">
+	  <p>
+	  <span style="color:red;">{{status}}</span>
+	  </p>
+	  <form class="simple-form">
+	    <div class="input-group">
+	      <span class="input-group-addon">Fridge Name:</span>
+	      <input style="width:200px;" type="text" class="form-control" ng-model="fridgeName">
+	    </div>
+	    <p/>
+	    <div class="input-group">
+	      <label class="radio-inline">
+		<input type="radio" value="false" ng-model="manualMode">Use Presets
+	      </label>
+	      <label class="radio-inline">
+		<input type="radio" value="true" ng-model="manualMode">Specify Words
+	      </label>
+
+	    </div>
+	    <p/>
+	    <div ng-if="manualMode=='false'">
+	      <div class="input-group">
+		<label>Premade magnet sets: </label>
+		<select class="form-control" ng-model="selectedPremade.t" ng-options="preset.value as preset.name for preset in presets">
+		</select>
+	      </div>
+	    </div>
+	    <div ng-if="manualMode=='true'">
+	      <div class="input-group">
+		<label>Please enter your magnet word text here - we will automatically split up the text into words.</label>
+		<textarea rows="7" maxlength="10000" class="form-control" ng-model="wordListText"></textarea>
+	      </div>
+	    </div>
+	  </div>
+	</form>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>

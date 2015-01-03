@@ -1,0 +1,39 @@
+@media only screen 
+and (min-width : 250px) 
+and (max-width : 520px) {
+    #fbiframe {
+	width: 300px;
+    }
+    #mainheader {
+	font-size: 30px;
+	color: yellow;
+    }
+}
+
+@media only screen and (min-width : 1224px) {
+    #fbiframe {
+	width: 800px;
+    }
+}
+
+#fridge {
+    margin-top: 50px;
+    height: 1200px;
+    width: 970px;
+    border-radius: 15px 15px 15px 15px;
+    -moz-border-radius: 15px 15px 15px 15px;
+    -webkit-border-radius: 15px 15px 15px 15px;
+    border: 5px solid #000000;
+    float: left
+}
+
+.magnet {
+    border: 1px solid #000000;
+    box-shadow: 2px 2px 1px #888888;
+    width: auto;
+    height: 40px;
+    background: white;
+    text-align: center;
+    padding:8px;
+    
+}
