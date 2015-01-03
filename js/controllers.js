@@ -14,14 +14,12 @@ cpmodule.
       
       $scope.onStop = function(el, ui) {
 	  ui.helper.css('box-shadow','2px 2px 1px #888888');
-	  ui.helper.css('transform','scale(1,1)');
 	  ui.helper.css('z-index',zindexCounter);
 	  zindexCounter = zindexCounter + 1;
       }
       $scope.onDrag = function(el, ui) {
 	  ui.helper.css('box-shadow','8px 8px 8px #888888');
 	  ui.helper.css('z-index','10000');
-	  ui.helper.css('transform','scale(1.1,1.1)');
 
 	  var obj = ui.helper;
 
