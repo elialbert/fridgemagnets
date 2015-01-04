@@ -117,7 +117,7 @@ cpmodule
 		else {
 		    $scope.status = "";
 		    if ($scope.manualMode == 'true') {
-			var wordsToUse = $scope.wordListText ;
+			var wordsToUse = $scope.wordListText;
 		    }
 		    else {
 			var wordsToUse = $scope.selectedPremade.t;
