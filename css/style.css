@@ -8,8 +8,24 @@ and (max-width : 520px) {
 	font-size: 30px;
 	color: yellow;
     }
+    div.modal-dialog {
+        max-width: 500px;
+    }
 }
-
+@media only screen 
+and (min-width : 520px) 
+and (max-width : 1224px) {
+    #fbiframe {
+    width: 500px;
+    }
+    #mainheader {
+    font-size: 30px;
+    color: yellow;
+    }
+    div.modal-dialog {
+        max-width: 800px;
+    }
+}
 @media only screen and (min-width : 1224px) {
     #fbiframe {
 	width: 800px;
@@ -37,4 +53,10 @@ and (max-width : 520px) {
     padding:8px;
     cursor: hand;
     cursor: pointer;
+}
+nav.navbar {
+    max-width: 970px;
+}
+button.navbar-toggle {
+    float: left;
 }
