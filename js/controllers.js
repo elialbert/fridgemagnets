@@ -8,84 +8,100 @@ cpmodule.
       $scope.FBURL = FBURL;
       $scope.shapes = {}
       var zindexCounter = 1;
-      var container = angular.element("#fridge");
+      var container = document.querySelector("#fridge");
+      console.log(container)
       var roomName = $routeParams.name || "start";
       $scope.roomName = roomName;
-      fbutil.prepareRoom(roomName, (container[0].offsetHeight+container.offset().top), (container[0].offsetWidth), $scope);
+      fbutil.prepareRoom(roomName, (container.offsetHeight+fbutil.getElementOffset(container).top), (container.offsetWidth), $scope);
       
-      $scope.onStop = function(el, ui) {
-	  ui.helper.css('box-shadow','2px 2px 1px #888888');
-	  ui.helper.css('z-index',zindexCounter);
-	  zindexCounter = zindexCounter + 1;
+      $scope.onDropComplete1 =function(el, event) {
       }
-      $scope.onDrag = function(el, ui) {
-	  ui.helper.css('box-shadow','8px 8px 8px #888888');
-	  ui.helper.css('z-index','10000');
+      $scope.onStop = function(el, event) {
+      	var obj = document.querySelector('#'+el.$id)
+			  obj.style['box-shadow'] = '2px 2px 1px #888888';
+			  obj.style['z-index'] = zindexCounter;
+			  zindexCounter = zindexCounter + 1;
+      	var obj = document.querySelector('#'+el.$id)
+      	var data = $scope.shapes[el.$id]
+      	data.top = (data.top.slice(0,-2) - event.event.offsetY) + 'px'
+      	data.left = (data.left.slice(0,-2) - event.event.offsetX) + 'px'
+      	obj.style.top = data.top
+      	obj.style.left = data.left
+      }
+      $scope.onDragStart = function (data, event) {
+			  var obj = document.querySelector('#'+data.$id)
+			  obj.style['box-shadow'] = '8px 8px 8px #888888'
+			  obj.style['z-index'] = '10000'
+      }
+      $scope.$on('draggable:start', function (event, el) {
+      	console.log('wbyyyyyy')
+      });
 
-	  var obj = ui.helper;
+      $scope.$on('draggable:move', function(event, el) {
+			  var data = el.data
+			  var obj = document.querySelector('#'+data.$id)
+			  var top = el.y
+			  var left = el.x
 
-	  var container_offset = container.offset();	
-	  var element_offset = obj.offset();
+			  var container_offset = fbutil.getElementOffset(container);	
+			  var element_offset = fbutil.getElementOffset(obj);
 
-   	  if (element_offset.top < container_offset.top) {
-	      obj.css('top',(container_offset.top+5)+'px');
-	      ui.position.top = container_offset.top+5;
-	  }
-	  else if ((element_offset.top+obj[0].offsetHeight) > (container[0].offsetHeight + container.offset().top)) {
-	      var newval = (container[0].offsetHeight + container.offset().top) - (obj[0].offsetHeight + 7);
-	      obj.css('top',newval+'px');
-	      ui.position.top = newval;
-	  }
-   	  if (element_offset.left < container_offset.left) {
-	      obj.css('left',(container_offset.left+5)+'px');
-	      ui.position.left = container_offset.left + 5;
-	  }
-	  else if ((element_offset.left+obj[0].offsetWidth) > (container[0].offsetWidth + container.offset().left)) {
-	      var newval = (container[0].offsetWidth+container.offset().left) - (obj[0].offsetWidth+7);
-	      obj.css('left', newval+'px');
-	      ui.position.left = newval;
-	  }
+	   	  if (element_offset.top < container_offset.top) {
+			      obj.style.top = (container_offset.top+5)+'px';
+			      top = container_offset.top+5;
+			  }
+			  else if ((element_offset.top+obj.offsetHeight) > (container.offsetHeight + fbutil.getElementOffset(container).top)) {
+			      var newval = (container.offsetHeight + fbutil.getElementOffset(container).top) - (obj.offsetHeight + 7);
+			      obj.style.top = newval+'px';
+			      top = newval;
+			  }
+	   	  if (element_offset.left < container_offset.left) {
+			      obj.style.left = (container_offset.left+5)+'px';
+			      left = container_offset.left + 5;
+			  }
+			  else if ((element_offset.left+obj.offsetWidth) > (container.offsetWidth + fbutil.getElementOffset(container).left)) {
+			      var newval = (container.offsetWidth+fbutil.getElementOffset(container).left) - (obj.offsetWidth+7);
+			      obj.style.left = newval+'px';
+			      left = newval;
+			  }
 
-
-	  var shapeid = ui.helper.context.id;
-	  $scope.shapes[shapeid].top = ui.position.top + "px";
-	  $scope.shapes[shapeid].left = ui.position.left + "px";
-      };
+			  var shapeid = data.$id;
+			  $scope.shapes[shapeid].top = top + 'px';
+			  $scope.shapes[shapeid].left = left + 'px';
+      });
 
 
       $scope.changeSet = function() {
-	  var modalInstance = $modal.open({
-	      templateUrl: 'partials/choosemagnets.html',
-	      controller: 'ChooseMagnets',
-	      size: 'lg',
-	      resolve: {
-		  roomName: function() {
-		      return roomName
-		  }, 
-	      }
-	  });
-	  modalInstance.result.then(function(data) {
-	      var wordList = data.wordList;
-	      var fridgeName = data.fridgeName;
-	      fbutil.changeMagnetSet(wordList, 
-				     fridgeName, 
-				     (container[0].offsetHeight+container.offset().top), 
-				     (container[0].offsetWidth), 
-				     $scope);
-
-	      $location.path("/fridge/" + fridgeName);
-	  }, function() {
-	      return 
-	  });
-      };
+			  var modalInstance = $modal.open({
+			      templateUrl: 'partials/choosemagnets.html',
+			      controller: 'ChooseMagnets',
+			      size: 'lg',
+			      resolve: {
+				  		roomName: function() {
+				      	return roomName
+				  		}, 
+	      		}
+		  		});
+	  		modalInstance.result.then(function(data) {
+		      var wordList = data.wordList;
+		      var fridgeName = data.fridgeName;
+		      fbutil.changeMagnetSet(wordList, 
+			      fridgeName, 
+	  		    (container.offsetHeight+fbutil.getElementOffset(container).top), 
+					  (container.offsetWidth), 
+					  $scope);
+		      $location.path("/fridge/" + fridgeName);
+				  }, function() {
+			      return 
+		  		});
+    	};
 
       $scope.about = function() {
-	  var modalInstance = $modal.open({
-	      templateUrl: 'partials/about.html',
-	      controller: 'AboutCtrl'
-	  });
+	  		var modalInstance = $modal.open({
+	      	templateUrl: 'partials/about.html',
+	      	controller: 'AboutCtrl'
+	  		});
       }
-
   }]);
 
 cpmodule

@@ -18,7 +18,8 @@ cpmodule
 	prepareRoom: prepareRoom,  
 	changeMagnetSet: changeMagnetSet,  
 	testRoomName: testRoomName,  
-	presets: presets  
+	presets: presets,
+  getElementOffset: getElementOffset
       };
 
       function pathRef(args) {
@@ -86,6 +87,15 @@ cpmodule
 	     }
 	 });
      }
+
+     function getElementOffset(element)
+{
+    var de = document.documentElement;
+    var box = element.getBoundingClientRect();
+    var top = box.top + window.pageYOffset - de.clientTop;
+    var left = box.left + window.pageXOffset - de.clientLeft;
+    return { top: top, left: left };
+}
 
      function bigBind(scope, roomName, magnets) {
 	 angular.forEach(magnets, function(name) {

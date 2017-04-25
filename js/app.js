@@ -5,5 +5,5 @@ var cpmodule = angular.module('fridgemagnets', [
     'ngRoute',
     'ui.bootstrap',
     'firebase',
-    'ngDragDrop',
+    'ngDraggable',
   ]);

@@ -34,10 +34,10 @@
 
     <!-- Main Content -->
 
-    <div class="container" id="fridge">
+    <div class="container" id="fridge" ng-drop="true" ng-drop-success="onDropComplete1($data,$event)">
 	<div class="row">
 	  <div class="repeater" ng-repeat="(shapeId,shape) in shapes">
-	    <div id="{{shapeId}}" style="position:absolute; top:{{shape.top}}; left:{{shape.left}};" class="magnet" data-drag="true" jqyoui-draggable="{onDrag:'onDrag',onStop:'onStop', containment:'#fridge'}" ng-model="shape">{{shape.text}}</div>
+	    <div id="{{shapeId}}" style="position:absolute; top:{{shape.top}}; left:{{shape.left}};" class="magnet" ng-drag="true" ng-drag-data="shape" ng-drag-start="onDragStart($data,$event)" ng-drag-success="onStop($data, $event)" ng-model="shape">{{shape.text}}</div>
 	  </div>
 	</div>
     </div>
