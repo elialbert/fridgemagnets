@@ -4,7 +4,9 @@
 var cpmodule = angular.module('fridgemagnets');
 
 cpmodule.
-  controller('HomeCtrl', ['$scope', "$routeParams", 'fbutil', 'FBURL', "$modal", "$window", "$location", function($scope, $routeParams, fbutil, FBURL, $modal, $window, $location) {
+  controller('HomeCtrl', ['$scope', "$route", "$routeParams", 'fbutil', 'FBURL', "$modal", "$window", "$location", function($scope, $route, $routeParams, fbutil, FBURL, $modal, $window, $location) {
+      $scope.embedded = $route.current.$$route.originalPath.includes('/embeddedFridge')
+      console.log($scope.embedded)
       $scope.FBURL = FBURL;
       $scope.shapes = {}
       var zindexCounter = 1;

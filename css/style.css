@@ -43,6 +43,10 @@ and (max-width : 1224px) {
     float: left
 }
 
+div#fridge.embedded {
+    margin-top: 0px;
+}
+
 .magnet {
     border: 1px solid #000000;
     box-shadow: 2px 2px 1px #888888;

@@ -14,6 +14,14 @@ cpmodule.
       templateUrl: 'partials/about.html',
       controller: 'AboutCtrl'
     },
+    '/embeddedFridge': {
+      templateUrl: 'partials/home.html',
+      controller: 'HomeCtrl',
+    },
+    '/embeddedFridge/:name': {
+      templateUrl: 'partials/home.html',
+      controller: 'HomeCtrl',
+    }
   })
 
   .config(['$routeProvider', 'ROUTES', function($routeProvider, ROUTES) {
