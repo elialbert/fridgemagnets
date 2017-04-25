@@ -45,6 +45,13 @@ and (max-width : 1224px) {
 
 div#fridge.embedded {
     margin-top: 0px;
+    width: 400px;
+    height: 800px;
+}
+div#fridge.embeddedSetup {
+    margin-top: 0px;
+    width: 400px;
+    height: 800px;
 }
 
 .magnet {

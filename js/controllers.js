@@ -6,7 +6,7 @@ var cpmodule = angular.module('fridgemagnets');
 cpmodule.
   controller('HomeCtrl', ['$scope', "$route", "$routeParams", 'fbutil', 'FBURL', "$modal", "$window", "$location", function($scope, $route, $routeParams, fbutil, FBURL, $modal, $window, $location) {
       $scope.embedded = $route.current.$$route.originalPath.includes('/embeddedFridge')
-      console.log($scope.embedded)
+      $scope.embeddedSetup = $route.current.$$route.originalPath.includes('/setupEmbeddedFridge')
       $scope.FBURL = FBURL;
       $scope.shapes = {}
       var zindexCounter = 1;
@@ -75,7 +75,11 @@ cpmodule.
 				     (container[0].offsetWidth), 
 				     $scope);
 
-	      $location.path("/fridge/" + fridgeName);
+	      if ($scope.embedded || $scope.embeddedSetup) {
+	      	$location.path("/embeddedFridge/" + fridgeName);	
+	      } else {
+		      $location.path("/fridge/" + fridgeName);
+		    }
 	  }, function() {
 	      return 
 	  });

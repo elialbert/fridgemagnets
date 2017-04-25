@@ -40,9 +40,10 @@ cpmodule
 	 var prepared = {};
 	 var count = 0;
 	 var wordList = shuffle(wordList).slice(0,95);
+   var randomOffset = (width < 800) ? 0 : 100
 	 angular.forEach(wordList, function(word) {
 	     count = count + 1;
-	     var wordDict = {text:word.toLowerCase(),top:getRandomInt(100,height-100) + 'px',left:getRandomInt(100,width-200)+'px'};
+	     var wordDict = {text:word.toLowerCase(),top:getRandomInt(randomOffset,height-20) + 'px',left:getRandomInt(randomOffset,width-20)+'px'};
 	     var idx = 0;
 	     var wordId = word.concat(idx);
 	     while (prepared[wordId]) {
@@ -60,9 +61,9 @@ cpmodule
 	 var numWords = _.keys(d).length;
 	 var numPunc = Math.ceil(numWords/20);
 	 for (var i=0;i<numPunc;i++){
-	     d['zxzcomma'+i] = {'text':',', top:getRandomInt(100,height-100) + 'px',left:getRandomInt(100,width-200)+'px'}
-	     d['zxzperiod'+i] = {'text':'.', top:getRandomInt(100,height-100) + 'px',left:getRandomInt(100,width-200)+'px'}
-	     d['zxzqm'+i] = {'text':'?', top:getRandomInt(100,height-100) + 'px',left:getRandomInt(100,width-200)+'px'}
+	     d['zxzcomma'+i] = {'text':',', top:getRandomInt(100,height-20) + 'px',left:getRandomInt(100,width-20)+'px'}
+	     d['zxzperiod'+i] = {'text':'.', top:getRandomInt(100,height-20) + 'px',left:getRandomInt(100,width-20)+'px'}
+	     d['zxzqm'+i] = {'text':'?', top:getRandomInt(100,height-20) + 'px',left:getRandomInt(100,width-20)+'px'}
 	 }
 	 return d
      }

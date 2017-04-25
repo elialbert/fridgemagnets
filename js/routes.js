@@ -14,6 +14,10 @@ cpmodule.
       templateUrl: 'partials/about.html',
       controller: 'AboutCtrl'
     },
+    '/setupEmbeddedFridge': {
+      templateUrl: 'partials/home.html',
+      controller: 'HomeCtrl',
+    },
     '/embeddedFridge': {
       templateUrl: 'partials/home.html',
       controller: 'HomeCtrl',
